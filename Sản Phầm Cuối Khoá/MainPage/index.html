@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteWebSite</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <!-- Left side: navigation links -->
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#statistics">Statistics</a></li>
+        </ul>
+        <!-- Right side: auth buttons -->
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="../Register/register.html" class="register-button">Register</a>
+            <a href="../Login/login.html" class="login-button">Login</a>
+        </div>
+    </div>
+    <div id="todo-container">
+        <h1>To-Do List</h1>
+        <form id="add-container">
+            <input type="text" id="todo-input" placeholder="Add a new task..." />
+            <div id="Tag">
+                <div class="tag" id="important">
+                    <h4>Quan trọng</h3>
+                        <input type="radio" value="Y" name="important" id="important-Y"> Có
+                        <input type="radio" value="N" name="important" id="important-N"> Không
+                </div>
+                <div class="tag" id="urgent">
+                    <h4>Gấp</h3>
+                        <input type="radio" value="Y" name="urgent" id="urgent-Y"> Có
+                        <input type="radio" value="N" name="urgent" id="urgent-N"> Không
+                </div>
+            </div>
+            <button onclick="addTask()" id="add-button">Tạo kế hoạch</button>
+        </form>
+        <ul id="todo-list">
+            <!-- To-Do List items will appear here -->
+        </ul>
+    </div>
+    <script src="index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script src="../firebase-config.js"></script>
+</body>
+
+</html>
