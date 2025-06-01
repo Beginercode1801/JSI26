@@ -26,18 +26,22 @@
         <form id="add-container">
             <input type="text" id="todo-input" placeholder="Add a new task..." />
             <div id="Tag">
-                <div class="tag" id="important">
+                <div class="tag">
                     <h4>Quan trọng</h3>
-                        <input type="radio" value="Y" name="important" id="important-Y"> Có
-                        <input type="radio" value="N" name="important" id="important-N"> Không
+                        <select name="important" id="important">
+                            <option value="yes">Có</option>
+                            <option value="no">Không</option>
+                        </select>
                 </div>
-                <div class="tag" id="urgent">
+                <div class="tag">
                     <h4>Gấp</h3>
-                        <input type="radio" value="Y" name="urgent" id="urgent-Y"> Có
-                        <input type="radio" value="N" name="urgent" id="urgent-N"> Không
+                        <select name="urgent" id="urgent">
+                            <option value="yes">Có</option>
+                            <option value="no">Không</option>
+                        </select>
                 </div>
             </div>
-            <button onclick="addTask()" id="add-button">Tạo kế hoạch</button>
+            <button type="button" onclick="addTask()" id="add-button">Tạo kế hoạch</button>
         </form>
         <ul id="todo-list">
             <!-- To-Do List items will appear here -->

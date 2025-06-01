@@ -94,7 +94,7 @@ body {
     margin-left: 100px;
     background-color: #fff;
     padding: 20px;
-    width: 300px;
+    width: 350px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -116,7 +116,7 @@ h1 {
     font-size: 16px;
 }
 
-button {
+#add-button {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
@@ -127,7 +127,7 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+#add-button:hover {
     background-color: #45a049;
 }
 
@@ -186,4 +186,9 @@ button.delete:hover {
     #urgent-N{
         margin-left: 8px;
     }
+}
+p{
+    text-align: left;
+    /* margin-right: 60px; */
+    margin-bottom: 10px;
 }
