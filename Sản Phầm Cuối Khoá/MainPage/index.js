@@ -7,31 +7,33 @@ function loadProduct() {
                 // doc.data() is never undefined for query doc snapshots
                 const products = doc.data();
                 const productElemental = document.createElement("div");
-                color = "#44ff00"
+                color = "#2ecc71"
                 delet = `<button>❌</button>`
                 if (products.important == "yes" && products.urgent == "yes") {
-                    color = "#ff0000"
+                    color = "#e74c3c"
                 } else if (products.important == "yes" && products.urgent == "no") {
-                    color = "#ff8400"
+                    color = "#e67e22"
                 } else if (products.important == "no" && products.urgent == "yes") {
-                    color = "#f6ff00"
+                    color = "#f1c40f"
                 }
-                productElemental.style.borderLeft = `20px solid ${color}`
+                productElemental.style.borderLeft = `20px solid ${color}`;
+                productElemental.style.padding = "10px";
+                productElemental.style.margin = "10px 0";
+                productElemental.style.backgroundColor = "#f9f9f9";
+                productElemental.style.borderRadius = "6px";
+                productElemental.style.position = "relative";
                 productElemental.innerHTML = `
             <p>${products.content}</p>
-            <button onclick="deleteTask()">Xoá</button>
+            <button id="delete" onclick="deleteTask('${doc.id}', this)">❌</button>
             `
-                    productContainer.appendChild(productElemental);
-                });
+                productContainer.appendChild(productElemental);
+            });
         })
         .catch((error) => {
             console.error("Error", error)
         });
-
-
 }
 
-window.onload = loadProduct;
 
 function addTask() {
     const taskForm = document.querySelector('#add-container');
@@ -54,6 +56,10 @@ function addTask() {
             console.log("Add task successfully");
             taskForm.reset();
             loadProduct()
+            urgent_important();
+            Important();
+            Urgent();
+            normal();
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
@@ -61,13 +67,137 @@ function addTask() {
 
 }
 
-function deleteTask() {
-    const deleted = doc.id;
-    db.collection("task").doc(deleted).delete()
-    .then(() => {
-        console.log("Document successfully deleted!");
-        loadProduct()
-    }).catch((error) => {
-        console.error("Error removing document: ", error);
-    });
+function deleteTask(id, btnElement) {
+    db.collection("task").doc(id).delete()
+        .then(() => {
+            console.log("Task deleted!");
+            const taskElement = btnElement.closest('div');
+            taskElement.remove();
+            loadProduct()
+            urgent_important();
+            Important();
+            Urgent();
+            normal();
+        })
+        .catch((error) => {
+            console.error("Error removing task:", error);
+        });
 }
+
+function urgent_important() {
+    const productContainer = document.querySelector('#urgent-important');
+    productContainer.innerHTML = " ";
+    db.collection("task").where('important', '==', 'yes').where('urgent', '==', 'yes').get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                const products = doc.data();
+                const productElemental = document.createElement("div");
+                productElemental.style.backgroundColor = "#c24040"
+                productElemental.style.width = "265px";
+                productElemental.style.height = "40px";
+                productElemental.style.padding = "2px";
+                productElemental.style.margin = "10px 0";
+                productElemental.style.borderRadius = "6px";
+                productElemental.style.position = "relative";
+                productElemental.innerHTML = `
+            <p>${products.content}</p>
+            `
+                productContainer.appendChild(productElemental);
+            });
+        })
+        .catch((error) => {
+            console.error("Error", error)
+        });
+}
+
+function Important() {
+    const productContainer = document.querySelector('#Important');
+    productContainer.innerHTML = " ";
+    db.collection("task").where('important', '==', 'yes').where('urgent', '==', 'no').get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                const products = doc.data();
+                const productElemental = document.createElement("div");
+                productElemental.style.backgroundColor = "#d1814f"
+                productElemental.style.width = "265px";
+                productElemental.style.height = "40px";
+                productElemental.style.padding = "2px";
+                productElemental.style.margin = "10px 0";
+                productElemental.style.borderRadius = "6px";
+                productElemental.style.position = "relative";
+                productElemental.innerHTML = `
+            <p>${products.content}</p>
+            `
+                productContainer.appendChild(productElemental);
+            });
+        })
+        .catch((error) => {
+            console.error("Error", error)
+        });
+}
+
+function Urgent() {
+    const productContainer = document.querySelector('#Urgent');
+    productContainer.innerHTML = " ";
+    db.collection("task").where('important', '==', 'no').where('urgent', '==', 'yes').get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                const products = doc.data();
+                const productElemental = document.createElement("div");
+                productElemental.style.backgroundColor = "#d4ba4e"
+                productElemental.style.width = "265px";
+                productElemental.style.height = "40px";
+                productElemental.style.padding = "2px";
+                productElemental.style.margin = "10px 0";
+                productElemental.style.borderRadius = "6px";
+                productElemental.style.position = "relative";
+                productElemental.innerHTML = `
+            <p>${products.content}</p>
+            `
+                productContainer.appendChild(productElemental);
+            });
+        })
+        .catch((error) => {
+            console.error("Error", error)
+        });
+}
+
+function normal() {
+    const productContainer = document.querySelector('#normal');
+    productContainer.innerHTML = " ";
+    db.collection("task").where('important', '==', 'no').where('urgent', '==', 'no').get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                const products = doc.data();
+                const productElemental = document.createElement("div");
+                productElemental.style.backgroundColor = "#63c75b"
+                productElemental.style.width = "265px";
+                productElemental.style.height = "40px";
+                productElemental.style.padding = "2px";
+                productElemental.style.margin = "10px 0";
+                productElemental.style.width = "250px";
+                productElemental.style.height = "40px";
+                productElemental.style.borderRadius = "6px";
+                productElemental.style.position = "relative";
+                productElemental.innerHTML = `
+            <p>${products.content}</p>
+            `
+                productContainer.appendChild(productElemental);
+            });
+        })
+        .catch((error) => {
+            console.error("Error", error)
+        });
+}
+
+window.onload = function () {
+    loadProduct();
+    urgent_important();
+    Important();
+    Urgent();
+    normal();
+};
